@@ -1,0 +1,10 @@
+chunk_token_num: 1024
+overlapped_percent: 10.0
+table_context_size: 100
+image_context_size: 50
+with_children: true
+mode: "auto"
+hierarchical_merge: true
+hierarchical_depth: 3
+input: "example.pdf"
+output_dir: "output_results"

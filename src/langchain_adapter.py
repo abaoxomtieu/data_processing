@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any, List, Optional, Union
 
 from .chunking import ChunkingConfig
-from .markdown_pipeline import parse_markdown_and_chunk
+from .pipeline import parse_markdown_and_chunk
 
 
 def to_langchain_documents(chunks: List[dict]):
@@ -51,4 +51,3 @@ def load_file_into_vector_store(
         ids = [str(uuid4()) for _ in docs]
     vector_store.add_documents(documents=docs, ids=ids)
     return ids
-

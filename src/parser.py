@@ -7,12 +7,14 @@ import re
 from pathlib import Path
 from typing import Any, Callable, List, Optional, Tuple, Union
 
-from ..md_table_detect import find_tables_in_markdown
+from .table_detection import find_tables_in_markdown
 
 _log = logging.getLogger(__name__)
 
 _MD_IMAGE_PATTERN = re.compile(r"!\[([^\]]*)\]\(([^)\s]+)\)")
-_HTML_IMG_PATTERN = re.compile(r"<img[^>]*?src=[\"']([^\"']+)[\"'][^>]*?>", re.IGNORECASE)
+_HTML_IMG_PATTERN = re.compile(
+    r"<img[^>]*?src=[\"']([^\"']+)[\"'][^>]*?>", re.IGNORECASE
+)
 
 
 def parse_markdown_blocks(
@@ -54,7 +56,15 @@ def _blocks_to_sections_tables(
         elif btype == "table":
             tables.append(((None, b.get("text") or ""), []))
         elif btype == "image":
-            tables.append((({"type": "image", "path": b.get("path", "")}, b.get("caption", "") or ""), []))
+            tables.append(
+                (
+                    (
+                        {"type": "image", "path": b.get("path", "")},
+                        b.get("caption", "") or "",
+                    ),
+                    [],
+                )
+            )
     return sections, tables
 
 
@@ -78,7 +88,10 @@ def _split_markdown_to_blocks(
     # Map table start line idx (0-based) -> (end_idx_exclusive, raw_lines)
     table_by_start: dict[int, tuple[int, List[str]]] = {}
     for start, end, block in table_blocks:
-        table_by_start[start - 1] = (end, block)  # end is 1-based exclusive in find_tables_in_markdown loop logic
+        table_by_start[start - 1] = (
+            end,
+            block,
+        )  # end is 1-based exclusive in find_tables_in_markdown loop logic
 
     # Image paths in markdown are relative to markdown file location when using save_as_markdown.
     # We convert them to absolute paths to keep downstream stable.
@@ -228,5 +241,3 @@ def parse_markdown_file_to_legacy(
     """Legacy adapter (sections, tables) for older callers."""
     blocks = parse_markdown_blocks(md_path, callback=callback)
     return _blocks_to_sections_tables(blocks)
-
-
