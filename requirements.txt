@@ -1,0 +1,15 @@
+#
+# Core dependencies for data_processing (Docling → Markdown → chunking pipeline)
+# Install:  pip install -r data_processing/requirements.txt
+#
+
+# Tokenization
+tiktoken>=0.7.0
+
+# Docling converter (DOCX/PDF → Markdown + images)
+docling>=2.0.0
+docling-core>=2.0.0
+
+# Optional: LangChain document adapter (used in to_langchain_documents)
+langchain-core>=0.3.0
+
