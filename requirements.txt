@@ -10,6 +10,18 @@ tiktoken>=0.7.0
 docling>=2.0.0
 docling-core>=2.0.0
 
-# Optional: LangChain document adapter (used in to_langchain_documents)
+# LangChain document adapter + FAISS retrieval
 langchain-core>=0.3.0
+langchain-community>=0.3.0
+faiss-cpu>=1.7.4
+
+# Hybrid search: BM25 + RRF fusion
+rank-bm25>=0.2.2
+
+# Logging
+loguru>=0.7.0
+
+# Embeddings for retrieval (use one; or pass embeddings from RAG config)
+# langchain-openai>=0.2.0
+# sentence-transformers>=2.2.0
 

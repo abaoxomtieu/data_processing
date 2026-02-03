@@ -20,3 +20,6 @@ output/
 *.log
 **.docx
 
+.env
+
+faiss_index

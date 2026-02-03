@@ -8,7 +8,7 @@ from typing import List, Tuple
 
 
 # Dòng separator của bảng GFM: chỉ chứa |, -, :, khoảng trắng, ví dụ |---|---|
-TABLE_SEP_PATTERN = re.compile(r"^\\|[\\s\\-:]+\\|$")
+TABLE_SEP_PATTERN = re.compile(r"^\|[\s\-:]+\|$")
 
 
 def is_table_separator(line: str) -> bool:
@@ -18,7 +18,7 @@ def is_table_separator(line: str) -> bool:
         return False
     # Cho phép | ở đầu/cuối tùy style
     return bool(TABLE_SEP_PATTERN.match(line)) or bool(
-        re.match(r"^[\\s\\-:|]+\\|?$", line) and line.count("|") >= 2
+        re.match(r"^[\s\-:|]+\|?$", line) and line.count("|") >= 2
     )
 
 
