@@ -76,6 +76,10 @@ def run_docling_pipeline(
     1) Docling convert -> markdown
     2) markdown chunking -> chunks JSON
 
+    Chunks include chunk_id, mom_id (parent id for children), chunk_order for
+    retrieval_by_children. When indexing to vector/lexical store set
+    parent_id = metadata.mom_id if metadata.mom_id else metadata.chunk_id.
+
     Returns:
         Path to the written JSON file of chunks.
     """

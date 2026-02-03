@@ -462,6 +462,14 @@ def run_chunking_blocks(
 
     for idx, c in enumerate(out):
         c["metadata"]["chunk_index"] = idx
+        # Stable ids for retrieval_by_children and RAG indexing (parent_id = mom_id or chunk_id)
+        c["metadata"]["chunk_id"] = f"{source_name}_{idx}"
+        c["metadata"]["chunk_order"] = idx
+        if c["metadata"].get("chunk_type") == "child":
+            mom_idx = c["metadata"].get("mom_index", 0)
+            c["metadata"]["mom_id"] = f"{source_name}_{mom_idx}"
+        else:
+            c["metadata"]["mom_id"] = ""
     return out
 
 

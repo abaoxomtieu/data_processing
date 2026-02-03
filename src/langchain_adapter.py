@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Any, List, Optional, Union
+from langchain_core.vectorstores import VectorStore
 
 from .chunking import ChunkingConfig
 from .pipeline import parse_markdown_and_chunk
@@ -33,7 +34,7 @@ def to_langchain_documents(chunks: List[dict]):
 
 def load_file_into_vector_store(
     filepath: Union[str, Path],
-    vector_store: Any,
+    vector_store: VectorStore,
     config: Optional[ChunkingConfig] = None,
     ids: Optional[List[str]] = None,
 ):
